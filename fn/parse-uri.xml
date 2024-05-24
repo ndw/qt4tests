@@ -211,11 +211,9 @@ map {
   "uri": "file:////uncname/path/to/file",
   "scheme": "file",
   "hierarchical": true(),
-  "authority": "uncname",
-  "host": "uncname",
-  "path": "/path/to/file",
-  "filepath": "/path/to/file",
-  "path-segments": ("", "path", "to", "file")
+  "path": "//uncname/path/to/file",
+  "filepath": "//uncname/path/to/file",
+  "path-segments": ("", "", "uncname", "path", "to", "file")
 }</assert-deep-eq>
     </result>
   </test-case>
@@ -864,4 +862,39 @@ map {
       <assert-empty/>
     </result>
   </test-case>
+
+  <test-case name="fn-parse-uri-044">
+    <description>Parses a simple URI</description>
+    <created by="Norm Tovey-Walsh" on="2024-03-19"/>
+    <test>fn:parse-uri("https://example.com/path%2Fto/a=b")</test>
+    <result>
+      <assert-deep-eq>map {
+        "authority": "example.com",
+        "host": "example.com",
+        "path": "/path%2Fto/a=b",
+        "path-segments": ("", "path/to", "a=b"),
+        "scheme": "https",
+        "hierarchical": true(),
+        "uri": "https://example.com/path%2Fto/a=b"
+      }</assert-deep-eq>
+    </result>
+  </test-case>
+
+  <test-case name="fn-parse-uri-045">
+    <description>Parses a simple URI</description>
+    <created by="Norm Tovey-Walsh" on="2024-03-19"/>
+    <test>fn:parse-uri("https://example.com/path%2Fto/a%3Db")</test>
+    <result>
+      <assert-deep-eq>map {
+        "authority": "example.com",
+        "host": "example.com",
+        "path": "/path%2Fto/a%3Db",
+        "path-segments": ("", "path/to", "a=b"),
+        "scheme": "https",
+        "hierarchical": true(),
+        "uri": "https://example.com/path%2Fto/a%3Db"
+      }</assert-deep-eq>
+    </result>
+  </test-case>
+
 </test-set>
